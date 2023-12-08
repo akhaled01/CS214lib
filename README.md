@@ -1,18 +1,42 @@
-## Getting Started
+# LibSystem
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Project LibSystem is a Library system with basic terminal interface (TUI) Made for University of Bahrain's ITCS214 course.
 
-## Folder Structure
 
-The workspace contains two folders by default, where:
+![1702050151941](image/README/1702050151941.png)
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Current File structure (fs)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+```bash
+.
+├── README.md
+├── bin
+│   ├── Book.class
+│   ├── LibMember.class
+│   ├── LibraryMain.class
+│   ├── LibrarySystem.class
+│   └── Makefile
+├── lib
+└── src
+    ├── Book.java
+    ├── LibMember.java
+    ├── LibraryMain.java
+    ├── LibrarySystem.java
+    └── Makefile
 
-## Dependency Management
+3 directories, 11 files
+```
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+### More Information
+
+Project made in java using standard LinkedList class. 
+
+Ensure proper dependencies are installed before running.
+
+### Authors
+
+Abdulrahman Khaled Idrees - 202200729
+
+Khadija Saeed Albasri - 202200734
