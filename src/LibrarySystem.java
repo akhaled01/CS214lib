@@ -5,7 +5,6 @@ import java.util.*;
  * * We utilize multiple different classes and methods
  * !Done By:
  * !Abdulrahman Khaled - 202200729
- * !Khadija Saeed Abdulla Albasri - 202200734
  */
 
 public class LibrarySystem {
@@ -69,6 +68,7 @@ public class LibrarySystem {
 
     /**
      * add member to member list
+     * 
      * @param nMember
      * @return true, except if member already exists
      */
@@ -83,6 +83,7 @@ public class LibrarySystem {
 
     /**
      * private Method to get member by cpr
+     * 
      * @param targetCPR
      * @return library member, null if not exist
      */
@@ -98,9 +99,28 @@ public class LibrarySystem {
     }
 
     /**
+     * method to get Book by accession number
+     * 
+     * @param accessionNumber
+     * @return
+     */
+    private Book getBookBYAccsNumber(int accessionNumber) {
+        Iterator<Book> a = BookList.iterator();
+        while (a.hasNext()) {
+            Book tBook = a.next();
+            if (tBook.getAccessionNum() == accessionNumber) {
+                return tBook;
+            }
+        }
+        return null;
+    }
+
+    /**
      * delete member from memberlist
+     * 
      * @param CPR
-     * @return true on deletion, xcpet if member doesn't exist, or has books issued to him 
+     * @return true on deletion, xcpet if member doesn't exist, or has books issued
+     *         to him
      */
     public boolean deletemember(int CPR) {
         Iterator<LibMember> a = memberList.iterator();
@@ -123,6 +143,7 @@ public class LibrarySystem {
 
     /**
      * search book by accession number
+     * 
      * @param AccessionNumber
      * @return index of book if found, else -1
      */
@@ -131,23 +152,8 @@ public class LibrarySystem {
     }
 
     /**
-     * method to get Book by accession number
-     * @param accessionNumber
-     * @return
-     */
-    private Book getBookBYAccsNumber(int accessionNumber) {
-        Iterator<Book> a = BookList.iterator();
-        while (a.hasNext()) {
-            Book tBook = a.next();
-            if (tBook.getAccessionNum() == accessionNumber) {
-                return tBook;
-            }
-        }
-        return null;
-    }
-
-    /**
      * search member by his/her CPR number
+     * 
      * @param cprNum
      * @return index of member id found, else -1
      */
@@ -183,5 +189,77 @@ public class LibrarySystem {
         return memberListSize;
     }
 
-    
-}
+    /**
+     * Method to issue book to members
+     * 
+     * @param accessionNum
+     * @param cpr
+     * @return True if both member and book exist, and book isnt issued, and member
+     *         has less than 10 books issued
+     */
+    public boolean issueBook(int accessionNum, int cpr) {
+        LibMember toBeIssued = getMemberByCPR(cpr);
+        Book lendedBook = getBookBYAccsNumber(accessionNum);
+        if (BookList.indexOf(getBookBYAccsNumber(accessionNum)) == -1 || lendedBook.equals(null)
+                || toBeIssued.equals(null)
+                || memberList.indexOf(getMemberByCPR(cpr)) == -1) {
+            return false;
+        } else if (!getBookBYAccsNumber(accessionNum).getIssuedTo().equals(null)) {
+            return false;
+        } else if (getMemberByCPR(cpr).getNumBooksIssued() == 10) {
+            return false;
+        }
+
+        lendedBook.setIssuedTo(toBeIssued);
+        // auto increments by numBookList by 1
+        toBeIssued.setBooksIssued(toBeIssued.appendBookList(lendedBook));;
+
+        return true;
+    }
+
+    /**
+     * Method to return book to library
+     * 
+     * @param accessionNum
+     * @return true if book exists and is issued, otherwise false
+     */
+    public boolean returnBook(int accessionNum) {
+        Book a = getBookBYAccsNumber(accessionNum);
+        if (a.equals(null) || BookList.indexOf(a) == -1 || a.getIssuedTo().equals(null)
+                || memberList.indexOf(a.getIssuedTo()) == -1) {
+            return false;
+        }
+        LibMember temp = a.getIssuedTo();
+        // auto decrements numBooksIssued by 1
+        temp.setBooksIssued(temp.removeBookList(a));;
+        a.setIssuedTo(null);
+        return true;
+    }
+
+    /**
+     * Method to check if a book is issued
+     * 
+     * @param accessionNum
+     * @return True if Book exists, in bookList, and is issued to someone
+     */
+    public boolean isBookIssued(int accessionNum) {
+        return !getBookBYAccsNumber(accessionNum).equals(null)
+                && BookList.indexOf(getBookBYAccsNumber(accessionNum)) != -1
+                && !getBookBYAccsNumber(accessionNum).getIssuedTo().equals(null);
+    }
+
+    /**
+     * Prints Books issued to a member
+     * @param cpr
+     */
+    public void printBooksIssued(int cpr) {
+        LibMember mem = getMemberByCPR(cpr);
+        Book[] list = mem.getBooksIssued();
+        System.out.println("BOOKS ISSUED TO : " + mem.getFirstName() + " " + mem.getLastName());
+        for (Book book : list) {
+            System.out.println(book.toString());
+            System.out.println("=================");
+        }
+        System.out.println("<==========>");
+    }
+} // end of Library System

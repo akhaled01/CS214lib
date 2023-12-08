@@ -1,5 +1,12 @@
 import java.util.*;
 
+/**
+ * * The following class is the main library member system
+ * * We utilize multiple different classes and methods
+ * !Done By:
+ * !Khadija Saeed Albasri - 202200734
+ */
+
 public class LibMember {
     private String firstName;
     private String lastName;
@@ -9,9 +16,11 @@ public class LibMember {
     private Book[] booksIssued;
     private int numBooksIssued;
 
+    /**
+     * default constructor to initialize all the data members to their default
+     * values
+     */
     public LibMember() {
-        // default constructor to initialize all the data members to their default
-        // values
         firstName = null;
         lastName = null;
         gender = ' ';
@@ -21,9 +30,17 @@ public class LibMember {
         numBooksIssued = 0;
     }
 
+    /**
+     * constructor with parameters to initialize all data members to the passed
+     * parameters, except the array booksIssued and the number of booksIssued
+     * 
+     * @param fN
+     * @param lN
+     * @param g
+     * @param cN
+     * @param tN
+     */
     public LibMember(String fN, String lN, char g, long cN, String tN) {
-        // constructor with parameters to initialize all data members to the passed
-        // parameters, except the array booksIssued and the number of booksIssued
         firstName = fN;
         lastName = lN;
         gender = g;
@@ -33,10 +50,18 @@ public class LibMember {
         numBooksIssued = 0;
     }
 
+    /**
+     * set first Name
+     * @param fN
+     */
     public void setFirstName(String fN) {
         firstName = fN;
     }
 
+    /**
+     * set Last Name
+     * @param lN
+     */
     public void setLastName(String lN) {
         lastName = lN;
     }
@@ -86,6 +111,55 @@ public class LibMember {
     }
 
     /**
+     * Add a new book to the issued book list 
+     * 
+     * @param a
+     * @return new bookArray after addition
+     */
+    public Book[] appendBookList(Book a) {
+        int length = booksIssued.length;
+        Book[] newArray = Arrays.copyOf(booksIssued, length + 1);
+        newArray[length] = a;
+        numBooksIssued++;
+        return newArray;
+    }
+
+    /**
+     * remove a book from the issued book list
+     * 
+     * @param a
+     * @return new bookarray after removal
+     */
+    public Book[] removeBookList(Book a) {
+        int length = booksIssued.length;
+        int index = -1;
+
+        // Find the index of the book to delete
+        for (int i = 0; i < length; i++) {
+            if (booksIssued[i].equals(a)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            throw new IllegalArgumentException("Book not found in the array");
+        }
+
+        Book[] newArray = new Book[length - 1];
+
+        // Copy all elements from the original array to the new array except the book to
+        // delete
+        for (int i = 0, j = 0; i < length; i++) {
+            if (i != index) {
+                newArray[j++] = booksIssued[i];
+            }
+        }
+        numBooksIssued--;
+        return newArray;
+    }
+
+    /**
      * @return
      */
     public int getNumBooksIssued() {
@@ -132,7 +206,7 @@ public class LibMember {
 
     public String toString() {
         return String.format(
-                "First name: %s\n Last Name: %s\n CPR Num: %s\n Gender: %s\n TeleNum: %x\n Books Issued: %s\n",
+                "First name: %s\nLast Name: %s\nCPR Num: %s\nGender: %s\nTeleNum: %x\nBooks Issued:%s\n",
                 firstName, lastName, cprNum, gender, teleNum, issuedBooks());
     }
 }
