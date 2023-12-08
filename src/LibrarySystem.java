@@ -58,7 +58,7 @@ public class LibrarySystem {
         Iterator<Book> a = BookList.iterator();
         while (a.hasNext()) {
             Book temp = a.next();
-            if (!temp.isIssuedToMember && temp.AccessionNumber == AccessionNumber) {
+            if (!temp.getIssuedTo().equals(null) && temp.getAccessionNum() == AccessionNumber) {
                 a.remove();
                 booksListSize--;
                 return true;
@@ -82,19 +82,35 @@ public class LibrarySystem {
     }
 
     /**
+     * private Method to get member by cpr
+     * @param targetCPR
+     * @return library member, null if not exist
+     */
+    private LibMember getMemberByCPR(int targetCPR) {
+        Iterator<LibMember> a = memberList.iterator();
+        while (a.hasNext()) {
+            LibMember tMember = a.next();
+            if (tMember.getCprNum() == targetCPR) {
+                return tMember;
+            }
+        }
+        return null;
+    }
+
+    /**
      * delete member from memberlist
      * @param CPR
      * @return true on deletion, xcpet if member doesn't exist, or has books issued to him 
      */
     public boolean deletemember(int CPR) {
         Iterator<LibMember> a = memberList.iterator();
-        if (memberList.indexOf(LibMember.getMemberByCPR(CPR)) == -1) {
+        if (getMemberByCPR(CPR) == null) {
             return false;
         }
         while (a.hasNext()) {
             LibMember temp = a.next();
-            if (temp == LibMember.getMemberByCPR(CPR)) {
-                if (LibMember.getMemberByCPR(CPR).hasBooks()) {
+            if (temp.equals(getMemberByCPR(CPR))) {
+                if (temp.getBooksIssued().length == 0) {
                     return false;
                 }
                 a.remove();
@@ -111,7 +127,23 @@ public class LibrarySystem {
      * @return index of book if found, else -1
      */
     public int searchBook(int AccessionNumber) {
-        return BookList.indexOf(Book.getBookBYAccsNumber(AccessionNumber));
+        return BookList.indexOf(getBookBYAccsNumber(AccessionNumber));
+    }
+
+    /**
+     * method to get Book by accession number
+     * @param accessionNumber
+     * @return
+     */
+    private Book getBookBYAccsNumber(int accessionNumber) {
+        Iterator<Book> a = BookList.iterator();
+        while (a.hasNext()) {
+            Book tBook = a.next();
+            if (tBook.getAccessionNum() == accessionNumber) {
+                return tBook;
+            }
+        }
+        return null;
     }
 
     /**
@@ -120,7 +152,7 @@ public class LibrarySystem {
      * @return index of member id found, else -1
      */
     public int searchMember(int cprNum) {
-        return memberList.indexOf(LibMember.getMemberByCPR(cprNum));
+        return memberList.indexOf(getMemberByCPR(cprNum));
     }
 
     /**
