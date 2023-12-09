@@ -1,42 +1,58 @@
-# LibSystem
+# LibSys
 
-Project LibSystem is a Library system with basic terminal interface (TUI) Made for University of Bahrain's ITCS214 course.
+Project LibSys is a Library system with basic terminal interface (TUI) Made for University of Bahrain's ITCS214 course.
 
+## File structure (fs)
 
-![1702050151941](image/README/1702050151941.png)
-
-
-## Current File structure (fs)
-
-```bash
+```
 .
 ├── README.md
 ├── bin
 │   ├── Book.class
+│   ├── ColorPrinter.class
 │   ├── LibMember.class
 │   ├── LibraryMain.class
 │   ├── LibrarySystem.class
-│   └── Makefile
+│   ├── Makefile
+│   └── MenuSys.class
+├── image
+│   └── README
+│       ├── 1702050151941.png
+│       └── 1702050153577.png
 ├── lib
 └── src
     ├── Book.java
+    ├── ColorPrinter.java
     ├── LibMember.java
     ├── LibraryMain.java
     ├── LibrarySystem.java
-    └── Makefile
-
-3 directories, 11 files
+    ├── Makefile
+    └── MenuSys.java
 ```
-
 
 ### More Information
 
-Project made in java using standard LinkedList class. 
+* Project made in java using standard LinkedList class and arrays.
+* No other data structure was used
+* When getting information, please enter a **number** to return to main menu
+* Ensure proper dependencies are installed before running.
 
-Ensure proper dependencies are installed before running.
+> Project Has A makefile to run the application.
+>
+> It has been added for quick compilation. If the tool is available on your device, consider using it.
+
+### How to run:
+
+1. Clone the Repo ``git clone https://github.com/akhaled01/CS214lib.git``
+2. Move to CS214lib Directory
+3. open terminal and type ``java LibraryMain.java``
 
 ### Authors
 
 Abdulrahman Khaled Idrees - 202200729
 
 Khadija Saeed Albasri - 202200734
+
+#### Side Note
+
+This project really needs a database
