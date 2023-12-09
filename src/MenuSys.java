@@ -201,19 +201,21 @@ public class MenuSys {
         String isbn;
         long accessionNum;
 
-        ColorPrinter.printYellow("Please provide the following information:");
+        in.nextLine();
 
+        ColorPrinter.printYellow("Please provide the following information:");
+        System.out.println();
         ColorPrinter.printBlue("Title: ");
-        title = in.next();
+        title = in.nextLine();
 
         ColorPrinter.printBlue("Author 1: ");
-        author1 = in.next();
+        author1 = in.nextLine();
 
         ColorPrinter.printBlue("Author 2: ");
-        author2 = in.next();
+        author2 = in.nextLine();
 
         ColorPrinter.printBlue("Publisher: ");
-        publisher = in.next();
+        publisher = in.nextLine();
 
         ColorPrinter.printBlue("Year of Publication: ");
         yearPublication = in.nextInt();
@@ -225,8 +227,12 @@ public class MenuSys {
         accessionNum = in.nextLong();
 
         Book tobeAdded = new Book(title, author1, author2, publisher, yearPublication, isbn, accessionNum);
-        LibSys.addBook(tobeAdded);
-        ColorPrinter.printGreen("Memeber Added Successfullly");
+        boolean a = LibSys.addBook(tobeAdded);
+        if (a) {
+            ColorPrinter.printGreen("Book Added Successfullly");
+        } else {
+            ColorPrinter.printRed("book addition failed");
+        }
         Thread.sleep(1500);
         return;
     }
@@ -257,8 +263,12 @@ public class MenuSys {
         teleNum = in.nextLine();
 
         LibMember tLibMember = new LibMember(firstName, lastName, c.charAt(0), cprNum, teleNum);
-        LibSys.addMember(tLibMember);
-        ColorPrinter.printGreen("Member Added Successfully!");
+        boolean a = LibSys.addMember(tLibMember);
+        if (a) {
+            ColorPrinter.printGreen("Member Added Successfully!");
+        } else {
+            ColorPrinter.printGreen("Member Addiiton failed!");
+        }
         Thread.sleep(1500);
         return;
     }

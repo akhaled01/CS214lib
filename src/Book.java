@@ -173,7 +173,7 @@ public class Book {
 
     public String toString() {
         return String.format(
-                "Book Title: %s\nauthor1: %s\nauthor2: %s\npublisher: %s\nISBN: %s\npublished in: %h\n",
+                "Book Title: %s\nauthor1: %s\nauthor2: %s\npublisher: %s\nISBN: %s\npublished in: %d\n",
                 title, author1, author2, publisher, isbn, yearPublication);
     }
 }

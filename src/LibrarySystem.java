@@ -200,19 +200,20 @@ public class LibrarySystem {
     public boolean issueBook(long accessionNum, long cpr) {
         LibMember toBeIssued = getMemberByCPR(cpr);
         Book lendedBook = getBookBYAccsNumber(accessionNum);
-        if (BookList.indexOf(getBookBYAccsNumber(accessionNum)) == -1 || lendedBook.equals(null)
-                || toBeIssued.equals(null)
-                || memberList.indexOf(getMemberByCPR(cpr)) == -1) {
+        if (lendedBook == null || toBeIssued == null) {
+            // check if both member and book exist
             return false;
-        } else if (!getBookBYAccsNumber(accessionNum).getIssuedTo().equals(null)) {
+        } else if (lendedBook.getIssuedTo() != null) {
+            // check if book is lended
             return false;
-        } else if (getMemberByCPR(cpr).getNumBooksIssued() == 10) {
+        } else if (toBeIssued.getNumBooksIssued() == 10) {
+            // check if num of books issued to memeber is at max
             return false;
         }
 
         lendedBook.setIssuedTo(toBeIssued);
         // auto increments by numBookList by 1
-        toBeIssued.setBooksIssued(toBeIssued.appendBookList(lendedBook));;
+        toBeIssued.setBooksIssued(toBeIssued.appendBookList(lendedBook));
 
         return true;
     }
@@ -231,7 +232,8 @@ public class LibrarySystem {
         }
         LibMember temp = a.getIssuedTo();
         // auto decrements numBooksIssued by 1
-        temp.setBooksIssued(temp.removeBookList(a));;
+        temp.setBooksIssued(temp.removeBookList(a));
+        ;
         a.setIssuedTo(null);
         return true;
     }
@@ -243,13 +245,14 @@ public class LibrarySystem {
      * @return True if Book exists, in bookList, and is issued to someone
      */
     public boolean isBookIssued(long accessionNum) {
-        return !getBookBYAccsNumber(accessionNum).equals(null)
+        return !(getBookBYAccsNumber(accessionNum) == null)
                 && BookList.indexOf(getBookBYAccsNumber(accessionNum)) != -1
                 && !(getBookBYAccsNumber(accessionNum).getIssuedTo() == null);
     }
 
     /**
      * Prints Books issued to a member
+     * 
      * @param cpr
      */
     public void printBooksIssued(long cpr) {
