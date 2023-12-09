@@ -67,46 +67,59 @@ public class LibMember {
         lastName = lN;
     }
 
+    /* set gender
+     */
+
     public void setGender(char g) {
         gender = g;
     }
-
+    /* set cprNum
+     */
     public void setCprNum(long cN) {
         cprNum = cN;
     }
-
+    /* set teleNum
+     */
     public void setTeleNum(String tN) {
         teleNum = tN;
     }
-
+    /* set booksIssued
+     */
     public void setBooksIssued(Book[] bI) {
         booksIssued = bI;
     }
-
+    /* set numBooksIssued
+     */
     public void setNumBooksIssued(int nBI) {
         numBooksIssued = nBI;
     }
-
+    /* get firstName
+     */
     public String getFirstName() {
         return firstName;
     }
-
+    /* get lastName
+     */
     public String getLastName() {
         return lastName;
     }
-
+    /* get gender
+     */
     public char getGender() {
         return gender;
     }
-
+    /* get cprNum
+     */
     public long getCprNum() {
         return cprNum;
     }
-
+    /* get teleNum
+     */
     public String getTeleNum() {
         return teleNum;
     }
-
+    /* get booksIssued
+     */
     public Book[] getBooksIssued() {
         return booksIssued;
     }
@@ -173,6 +186,9 @@ public class LibMember {
      * @return
      */
     public boolean equals(LibMember libMember) {
+        /* equals method to see if the libMember is equal to the passed libMember parameter
+        *
+         */
         if (this == libMember) {
             return true;
         }

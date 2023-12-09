@@ -7,7 +7,9 @@
  */
 
 public class Book {
-    // this class contains information about the book in the library system
+    /* this class contains information about the book in the library system
+    *
+     */
     private String title;
     private String author1;
     private String author2;
@@ -50,15 +52,15 @@ public class Book {
         author2 = a2;
         publisher = p;
         yearPublication = yP;
-        // checking if the ISBN passed is 13-digits, otherwise setting it to default
-        // value
+        /* checking if the ISBN passed is 13-digits, otherwise setting it to default
+         value*/
         if (ISBN.length() == 13) {
             isbn = ISBN;
         } else {
             isbn = "0000000000000";
         }
-        // checking if the aN passed is more than 1000, otherwise setting it to default
-        // value, and incrememnt static accession countr by 1
+        /* checking if the aN passed is more than 1000, otherwise setting it to default
+         value, and incrememnt static accession countr by 1*/
         if (aN > 1000) {
             accessionNum = aN;
         } else {
