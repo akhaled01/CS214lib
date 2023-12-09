@@ -40,13 +40,6 @@ public class MenuSys {
      * @throws InterruptedException
      */
     public static void Init() throws InterruptedException {
-        if (console == null) {
-            System.err.println("No console available");
-            in.close();
-            System.exit(1);
-            return;
-        }
-
         clearTerminal();
         int option;
         ColorPrinter.printMagenta("\n\t\t\t\t\tWelcome to LibSys\t\t\t\t\n");
