@@ -58,7 +58,10 @@ public class LibrarySystem {
         while (a.hasNext()) {
             Book temp = a.next();
             System.out.println(temp);
-            if (!(temp.getIssuedTo() == null) && temp.getAccessionNum() == AccessionNumber) {
+            if (temp.getAccessionNum() == AccessionNumber) {
+                if (temp.getIssuedTo() != null) {
+                    return false;
+                }
                 a.remove();
                 booksListSize--;
                 return true;
