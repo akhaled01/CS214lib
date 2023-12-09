@@ -17,8 +17,10 @@ public class Book {
     private LibMember issuedTo;
     private static int AccessionCounter = 0;
 
+    /**
+     * default constructor initializing each data member to default values
+     */
     public Book() {
-        // default constructor initializing each data member to default values
         title = null;
         author1 = null;
         author2 = null;
@@ -29,9 +31,18 @@ public class Book {
         issuedTo = null;
     }
 
+    /**
+     * constructor with parameters assigning the passed parameters to each of the data members
+     * 
+     * @param t
+     * @param a1
+     * @param a2
+     * @param p
+     * @param yP
+     * @param ISBN
+     * @param aN
+     */
     public Book(String t, String a1, String a2, String p, int yP, String ISBN, long aN) {
-        // constructor with parameters assigning the passed parameters to each of the
-        // data members
         title = t;
         author1 = a1;
         author2 = a2;
@@ -45,7 +56,7 @@ public class Book {
             isbn = "0000000000000";
         }
         // checking if the aN passed is more than 1000, otherwise setting it to default
-        // value
+        // value, and incrememnt static accession countr by 1
         if (aN > 1000) {
             accessionNum = aN;
         } else {
@@ -55,13 +66,19 @@ public class Book {
         issuedTo = null;
     }
 
+    /**
+     * set method for title
+     * @param t -  title to set
+     */
     public void setTitle(String t) {
-        // set method for title
         title = t;
     }
 
+    /**
+     * set method for author 1
+     * @param t - author1 to set
+     */
     public void setAuthor1(String a1) {
-        // set method for author1
         author1 = a1;
     }
 

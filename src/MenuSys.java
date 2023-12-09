@@ -16,6 +16,9 @@ public class MenuSys {
     protected static Scanner in = new Scanner(System.in);
     protected static LibrarySystem LibSys = new LibrarySystem();
 
+    /**
+     * Function to clear terminal on Invocation
+     */
     public static void clearTerminal() {
         // Checking operating system
         String os = System.getProperty("os.name").toLowerCase();
@@ -32,7 +35,7 @@ public class MenuSys {
 
     /**
      * Init() methods creates a Menu instance that will be the
-     * UI for the user
+     * TUI for the user
      * 
      * @throws InterruptedException
      */
@@ -97,7 +100,7 @@ public class MenuSys {
             }
         } catch (InputMismatchException e) {
             clearTerminal();
-            ColorPrinter.printOrange("Input mismatch...exiting");
+            ColorPrinter.printYellow("Input mismatch...exiting");
             Thread.sleep(1500);
             clearTerminal();
             System.exit(0);
@@ -106,15 +109,25 @@ public class MenuSys {
         in.close();
     }
 
+    /**
+     * sys to return books issued to a member
+     * @throws InterruptedException
+     */
     private static void getIssuedSys() throws InterruptedException {
-        ColorPrinter.printOrange("Enter Member CPR: ");
+        clearTerminal();
+        ColorPrinter.printYellow("Enter Member CPR: ");
         LibSys.printBooksIssued(in.nextLong());
         int o = in.nextInt();
         return;
     }
 
+    /**
+     * sys to remove book from Booklist
+     * @throws InterruptedException
+     */
     private static void removeBookSys() throws InterruptedException {
-        ColorPrinter.printOrange("Enter Book Accession Numeber: ");
+        clearTerminal();
+        ColorPrinter.printYellow("Enter Book Accession Numeber: ");
         long AccessionNumber = in.nextLong();
         if (LibSys.deleteBook(AccessionNumber)) {
             ColorPrinter.printGreen("book successfully removed");
@@ -125,8 +138,13 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * menu to remove member
+     * @throws InterruptedException
+     */
     private static void removeMemSys() throws InterruptedException {
-        ColorPrinter.printOrange("Enter Member CPR: ");
+        clearTerminal();
+        ColorPrinter.printYellow("Enter Member CPR: ");
         long cpr = in.nextLong();
         if (LibSys.deletemember(cpr)) {
             ColorPrinter.printGreen("member successfully removed");
@@ -137,9 +155,13 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * menu to get a member's info
+     * @throws InterruptedException
+     */
     private static void getMemInfo() throws InterruptedException {
         clearTerminal();
-        ColorPrinter.printOrange("Enter Member CPR: ");
+        ColorPrinter.printYellow("Enter Member CPR: ");
         long cpr = in.nextLong();
         LibMember a = LibSys.getMemberByCPR(cpr);
         ColorPrinter.printGreen(a.toString());
@@ -147,9 +169,13 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * menu to get a book's info
+     * @throws InterruptedException
+     */
     private static void getBookInfo() throws InterruptedException {
         clearTerminal();
-        ColorPrinter.printOrange("Enter Book Accession Number: ");
+        ColorPrinter.printYellow("Enter Book Accession Number: ");
         long accs = in.nextLong();
         Book a = LibSys.getBookBYAccsNumber(accs);
         ColorPrinter.printGreen(a.toString());
@@ -157,9 +183,13 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * Retrun Book Menu
+     * @throws InterruptedException
+     */
     private static void ReturnBookSys() throws InterruptedException {
         clearTerminal();
-        ColorPrinter.printBlue("Enter Book Accession Number: ");
+        ColorPrinter.printYellow("Enter Book Accession Number: ");
         long accs = in.nextLong();
         if (LibSys.returnBook(accs)) {
             ColorPrinter.printGreen("Book returned successfully");
@@ -170,16 +200,20 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * Book Issuance to member menu
+     * @throws InterruptedException
+     */
     private static void IssueBookToMemberSys() throws InterruptedException {
         clearTerminal();
-        ColorPrinter.printBlue("Enter Book Accession Number: ");
+        ColorPrinter.printYellow("Enter Book Accession Number: ");
         long accs = in.nextLong();
         if (LibSys.isBookIssued(accs)) {
             ColorPrinter.printRed("Book is issued to a member already");
             in.nextInt();
             return;
         }
-        ColorPrinter.printBlue("Enter Member CPR Number: ");
+        ColorPrinter.printYellow("Enter Member CPR Number: ");
         long cpr = in.nextLong();
         if (LibSys.issueBook(accs, cpr)) {
             ColorPrinter.printGreen("Book Issued Successfully!");
@@ -190,6 +224,10 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * Method to invoke a new menu to add a book to libsys
+     * @throws InterruptedException on thread interruption
+     */
     private static void AddNewBookToLibSys() throws InterruptedException {
         clearTerminal();
 
@@ -237,6 +275,10 @@ public class MenuSys {
         return;
     }
 
+    /**
+     * Method to invoke a new menu to add a member to libsys
+     * @throws InterruptedException
+     */
     private static void AddNewMemberSys() throws InterruptedException {
         clearTerminal();
         String firstName;
