@@ -197,6 +197,9 @@ public class LibMember {
     }
 
     public String issuedBooks() {
+        if (this.getNumBooksIssued() == 0) {
+            return "No Books Issued";
+        }
         String a = "";
         for (Book book : booksIssued) {
             a += book.getTitle() + " ";
@@ -206,7 +209,7 @@ public class LibMember {
 
     public String toString() {
         return String.format(
-                "First name: %s\nLast Name: %s\nCPR Num: %s\nGender: %s\nTeleNum: %x\nBooks Issued:%s\n",
+                "First name: %s\nLast Name: %s\nCPR Num: %s\nGender: %s\nTeleNum: %s\nBooks Issued:%s\n",
                 firstName, lastName, cprNum, gender, teleNum, issuedBooks());
     }
 }

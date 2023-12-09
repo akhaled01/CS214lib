@@ -245,7 +245,7 @@ public class LibrarySystem {
     public boolean isBookIssued(long accessionNum) {
         return !getBookBYAccsNumber(accessionNum).equals(null)
                 && BookList.indexOf(getBookBYAccsNumber(accessionNum)) != -1
-                && !getBookBYAccsNumber(accessionNum).getIssuedTo().equals(null);
+                && !(getBookBYAccsNumber(accessionNum).getIssuedTo() == null);
     }
 
     /**

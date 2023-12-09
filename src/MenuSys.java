@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.Console;
 
@@ -9,20 +10,11 @@ import java.io.Console;
  * ! Khadija Saeed Albasri - 202200734
  */
 
+@SuppressWarnings("unused")
 public class MenuSys {
     protected static Console console = System.console();
     protected static Scanner in = new Scanner(System.in);
     protected static LibrarySystem LibSys = new LibrarySystem();
-
-    private static void noecho(Console console) {
-        console.flush();
-        console.writer().write("\033[8m"); // Send escape sequence to disable echo
-    }
-
-    private static void enableecho(Console console) {
-        console.flush();
-        console.writer().write("\033[0m"); // Send escape sequence to enable echo
-    }
 
     public static void clearTerminal() {
         // Checking operating system
@@ -53,9 +45,10 @@ public class MenuSys {
         }
 
         clearTerminal();
+        int option;
         ColorPrinter.printMagenta("\n\t\t\t\t\tWelcome to LibSys\t\t\t\t\n");
-        System.out.println("\n\t\tChoose an Option\n\t\t");
-        noecho(console);
+        System.out.println("Choose an Option");
+        System.out.println();
         ColorPrinter.printBlue("[1] Add a member");
         ColorPrinter.printBlue("[2] Add A book to library");
         ColorPrinter.printBlue("[3] issue a Book to a Member");
@@ -67,55 +60,60 @@ public class MenuSys {
         ColorPrinter.printBlue("[9] Remove Book Fron Lib");
         ColorPrinter.printBlue("[Anything] exit");
 
-        int option = in.nextInt();
-
-        switch (option) {
-            case 1:
-                AddNewMemberSys();
-                break;
-            case 2:
-                AddNewBookToLibSys();
-                break;
-            case 3:
-                IssueBookToMemberSys();
-                break;
-            case 4:
-                ReturnBookSys();
-                break;
-            case 5:
-                getBookInfo();
-                break;
-            case 6:
-                getMemInfo();
-                break;
-            case 7:
-                getIssuedSys();
-                break;
-            case 8:
-                removeMemSys();
-                break;
-            case 9:
-                removeBookSys();
-                break;
-            default:
-                clearTerminal();
-                System.exit(0);
-                break;
+        try {
+            option = in.nextInt();
+            switch (option) {
+                case 1:
+                    AddNewMemberSys();
+                    Init();
+                case 2:
+                    AddNewBookToLibSys();
+                    Init();
+                case 3:
+                    IssueBookToMemberSys();
+                    Init();
+                case 4:
+                    ReturnBookSys();
+                    Init();
+                case 5:
+                    getBookInfo();
+                    Init();
+                case 6:
+                    getMemInfo();
+                    Init();
+                case 7:
+                    getIssuedSys();
+                    Init();
+                case 8:
+                    removeMemSys();
+                    Init();
+                case 9:
+                    removeBookSys();
+                    Init();
+                default:
+                    clearTerminal();
+                    System.exit(0);
+                    Init();
+            }
+        } catch (InputMismatchException e) {
+            clearTerminal();
+            ColorPrinter.printOrange("Input mismatch...");
+            Thread.sleep(1500);
+            clearTerminal();
+            System.exit(0);
         }
 
         in.close();
     }
 
     private static void getIssuedSys() throws InterruptedException {
-        enableecho(console);
         ColorPrinter.printOrange("Enter Member CPR: ");
         LibSys.printBooksIssued(in.nextLong());
-        in.next();
-        Init();
+        int o = in.nextInt();
+        return;
     }
 
     private static void removeBookSys() throws InterruptedException {
-        enableecho(console);
         ColorPrinter.printOrange("Enter Book Accession Numeber: ");
         long AccessionNumber = in.nextLong();
         if (LibSys.deleteBook(AccessionNumber)) {
@@ -124,11 +122,10 @@ public class MenuSys {
             ColorPrinter.printRed("book removal failed");
         }
         Thread.sleep(1500);
-        Init();
+        return;
     }
 
     private static void removeMemSys() throws InterruptedException {
-        enableecho(console);
         ColorPrinter.printOrange("Enter Member CPR: ");
         long cpr = in.nextLong();
         if (LibSys.deletemember(cpr)) {
@@ -137,34 +134,30 @@ public class MenuSys {
             ColorPrinter.printRed("Member removal failed");
         }
         Thread.sleep(1500);
-        Init();
+        return;
     }
 
     private static void getMemInfo() throws InterruptedException {
-        enableecho(console);
         clearTerminal();
         ColorPrinter.printOrange("Enter Member CPR: ");
         long cpr = in.nextLong();
         LibMember a = LibSys.getMemberByCPR(cpr);
         ColorPrinter.printGreen(a.toString());
-        noecho(console);
-        in.nextInt();
-        Init();
+        int o = in.nextInt();
+        return;
     }
 
     private static void getBookInfo() throws InterruptedException {
-        enableecho(console);
         clearTerminal();
         ColorPrinter.printOrange("Enter Book Accession Number: ");
         long accs = in.nextLong();
         Book a = LibSys.getBookBYAccsNumber(accs);
         ColorPrinter.printGreen(a.toString());
-        in.nextInt();
-        Init();
+        int o = in.nextInt();
+        return;
     }
 
     private static void ReturnBookSys() throws InterruptedException {
-        enableecho(console);
         clearTerminal();
         ColorPrinter.printBlue("Enter Book Accession Number: ");
         long accs = in.nextLong();
@@ -174,18 +167,16 @@ public class MenuSys {
             ColorPrinter.printRed("This book either doesnt exist, or was never issued");
         }
         Thread.sleep(1500);
-        Init();
+        return;
     }
 
     private static void IssueBookToMemberSys() throws InterruptedException {
-        enableecho(console);
         clearTerminal();
         ColorPrinter.printBlue("Enter Book Accession Number: ");
         long accs = in.nextLong();
         if (LibSys.isBookIssued(accs)) {
             ColorPrinter.printRed("Book is issued to a member already");
             in.nextInt();
-            Init();
             return;
         }
         ColorPrinter.printBlue("Enter Member CPR Number: ");
@@ -196,11 +187,10 @@ public class MenuSys {
             ColorPrinter.printRed("Book is either issued, or doesnt exist, or member doesnt exist");
         }
         Thread.sleep(1500);
-        Init();
+        return;
     }
 
     private static void AddNewBookToLibSys() throws InterruptedException {
-        enableecho(console);
         clearTerminal();
 
         String title;
@@ -214,58 +204,50 @@ public class MenuSys {
         ColorPrinter.printYellow("Please provide the following information:");
 
         ColorPrinter.printBlue("Title: ");
-        title = in.nextLine();
+        title = in.next();
 
         ColorPrinter.printBlue("Author 1: ");
-        author1 = in.nextLine();
+        author1 = in.next();
 
         ColorPrinter.printBlue("Author 2: ");
-        author2 = in.nextLine();
+        author2 = in.next();
 
         ColorPrinter.printBlue("Publisher: ");
-        publisher = in.nextLine();
+        publisher = in.next();
 
         ColorPrinter.printBlue("Year of Publication: ");
         yearPublication = in.nextInt();
-        in.nextLine(); // Consume the
-                       // newline character
-                       // after reading an
-                       // int
 
         ColorPrinter.printBlue("ISBN: ");
-        isbn = in.nextLine();
+        isbn = in.next();
 
         ColorPrinter.printBlue("Accession Number: ");
         accessionNum = in.nextLong();
-        in.nextLine(); // Consume the newline
-                       // character after
-                       // reading a long
 
         Book tobeAdded = new Book(title, author1, author2, publisher, yearPublication, isbn, accessionNum);
         LibSys.addBook(tobeAdded);
         ColorPrinter.printGreen("Memeber Added Successfullly");
         Thread.sleep(1500);
-        Init();
+        return;
     }
 
     private static void AddNewMemberSys() throws InterruptedException {
-        enableecho(console);
+        clearTerminal();
         String firstName;
         String lastName;
-        char gender;
         long cprNum;
         String teleNum;
 
         ColorPrinter.printYellow("Please provide the following information:");
 
         ColorPrinter.printBlue("First Name: ");
-        firstName = in.nextLine();
+        firstName = in.next();
 
         ColorPrinter.printBlue("Last Name: ");
-        lastName = in.nextLine();
+        lastName = in.next();
 
         ColorPrinter.printBlue("Gender (M/F): ");
-        gender = in.nextLine().charAt(0);
+        String c = in.next();
 
         ColorPrinter.printBlue("CPR Number: ");
         cprNum = in.nextLong();
@@ -274,10 +256,10 @@ public class MenuSys {
         ColorPrinter.printBlue("Telephone Number: ");
         teleNum = in.nextLine();
 
-        LibMember tLibMember = new LibMember(firstName, lastName, gender, cprNum, teleNum);
+        LibMember tLibMember = new LibMember(firstName, lastName, c.charAt(0), cprNum, teleNum);
         LibSys.addMember(tLibMember);
         ColorPrinter.printGreen("Member Added Successfully!");
         Thread.sleep(1500);
-        Init();
+        return;
     }
 }
