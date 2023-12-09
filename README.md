@@ -15,10 +15,6 @@ Project LibSys is a Library system with basic terminal interface (TUI) Made for 
 │   ├── LibrarySystem.class
 │   ├── Makefile
 │   └── MenuSys.class
-├── image
-│   └── README
-│       ├── 1702050151941.png
-│       └── 1702050153577.png
 ├── lib
 └── src
     ├── Book.java

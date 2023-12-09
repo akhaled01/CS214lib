@@ -5,6 +5,7 @@ import java.util.*;
  * * We utilize multiple different classes and methods
  * !Done By:
  * !Khadija Saeed Albasri - 202200734
+ * !Abdulrahman Khaled - 202200729
  */
 
 public class LibMember {
@@ -161,7 +162,7 @@ public class LibMember {
     }
 
     /**
-     * @return
+     * @return number of books issued to member
      */
     public int getNumBooksIssued() {
         return numBooksIssued;

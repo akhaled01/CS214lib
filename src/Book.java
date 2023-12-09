@@ -3,6 +3,7 @@
  * * We utilize multiple different classes and methods
  * !Done By:
  * !Khadija Saeed Albasri - 202200734
+ * !Abdulrahman Khaled - 202200729
  */
 
 public class Book {
@@ -32,7 +33,8 @@ public class Book {
     }
 
     /**
-     * constructor with parameters assigning the passed parameters to each of the data members
+     * constructor with parameters assigning the passed parameters to each of the
+     * data members
      * 
      * @param t
      * @param a1
@@ -68,7 +70,8 @@ public class Book {
 
     /**
      * set method for title
-     * @param t -  title to set
+     * 
+     * @param t - title to set
      */
     public void setTitle(String t) {
         title = t;
@@ -76,30 +79,47 @@ public class Book {
 
     /**
      * set method for author 1
+     * 
      * @param t - author1 to set
      */
     public void setAuthor1(String a1) {
         author1 = a1;
     }
 
+    /**
+     * set method for author2
+     * 
+     * @param a2
+     */
     public void setAuthor2(String a2) {
-        // set method for author2
         author2 = a2;
     }
 
+    /**
+     * set method for publisher
+     * 
+     * @param p
+     */
     public void setPublisher(String p) {
-        // set method for publisher
         publisher = p;
     }
 
+    /**
+     * set method for yearPublication
+     * 
+     * @param yP
+     */
     public void setYearPublication(int yP) {
-        // set method for yearPublication
         yearPublication = yP;
     }
 
+    /**
+     * set method for isbn, checks if ISBN is 13-digits first, otherwise sets it to
+     * default value
+     * 
+     * @param ISBN
+     */
     public void setIsbn(String ISBN) {
-        // set method for isbn, checks if ISBN is 13-digits first, otherwise sets it to
-        // default value
         if (ISBN.length() == 13) {
             isbn = ISBN;
         } else {
@@ -107,63 +127,110 @@ public class Book {
         }
     }
 
+    /**
+     * set method for accessionNum, checks if aN is more than 1000, otherwise sets
+     * it to default value
+     * 
+     * @param aN
+     */
     public void setAccessionNum(long aN) {
-        // set method for accessionNum, checks if aN is more than 1000, otherwise sets
-        // it to default value
         if (aN > 1000) {
             accessionNum = aN;
         } else {
-            accessionNum = 1000;
+            accessionNum = 1000 + AccessionCounter;
+            AccessionCounter++;
         }
     }
 
+    /**
+     * set method for issuedTo
+     * 
+     * @param iT
+     */
     public void setIssuedTo(LibMember iT) {
-        // set method for issuedTo
         issuedTo = iT;
     }
 
+    /**
+     * get method to return the title
+     * 
+     * @return title of book
+     */
     public String getTitle() {
-        // get method to return the title
         return title;
     }
 
+    /**
+     * get method to return the title
+     * 
+     * @return title of book
+     */
     public String getAuthor1() {
         // get method to return author1
         return author1;
     }
 
+    /**
+     * get method to return the title
+     * 
+     * @return title of book
+     */
     public String getAuthor2() {
-        // get method to return author2
         return author2;
     }
 
+    /**
+     * get method to return the title
+     * 
+     * @return title of book
+     */
     public String getPublisher() {
-        // get method to return the publisher
         return publisher;
     }
 
+    /**
+     * get method to return the year of publication
+     * 
+     * @return year of publication of book
+     */
     public int getYearPublication() {
-        // get method to return the year publication
         return yearPublication;
     }
 
+    /**
+     * get method to return the ISBN
+     * 
+     * @return ISBN of book
+     */
     public String getIsbn() {
-        // get method to return the isbn
         return isbn;
     }
 
+    /**
+     * get method to return the Accession Number
+     * 
+     * @return Accession Number of book
+     */
     public long getAccessionNum() {
-        // get method to return accessionNum
         return accessionNum;
     }
 
+    /**
+     * get method to return issedto
+     * 
+     * @return member to who is the book is issued
+     */
     public LibMember getIssuedTo() {
-        // get method to return who the book is issuedTo
         return issuedTo;
     }
 
+    /**
+     * Custom Equals method
+     * 
+     * @param book
+     * @return true if both books are deep equals otherwise false
+     */
     public boolean equals(Book book) {
-        // equals method to see if the passed book equals this book
         if (this == book) {
             return true;
         }
@@ -190,9 +257,13 @@ public class Book {
         return true;
     }
 
+    /**
+     * Build a string from the Book object
+     */
     public String toString() {
         return String.format(
                 "Book Title: %s\nauthor1: %s\nauthor2: %s\npublisher: %s\nISBN: %s\npublished in: %d\n",
-                title, author1, author2, publisher, isbn, yearPublication);
+                title, author1, author2, publisher, isbn, yearPublication) + "is issued to "
+                + getIssuedTo().getFirstName() + " " + getIssuedTo().getLastName();
     }
 }
