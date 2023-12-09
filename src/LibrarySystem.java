@@ -87,7 +87,7 @@ public class LibrarySystem {
      * @param targetCPR
      * @return library member, null if not exist
      */
-    private LibMember getMemberByCPR(int targetCPR) {
+    protected LibMember getMemberByCPR(long targetCPR) {
         Iterator<LibMember> a = memberList.iterator();
         while (a.hasNext()) {
             LibMember tMember = a.next();
@@ -104,7 +104,7 @@ public class LibrarySystem {
      * @param accessionNumber
      * @return
      */
-    private Book getBookBYAccsNumber(int accessionNumber) {
+    protected Book getBookBYAccsNumber(long accessionNumber) {
         Iterator<Book> a = BookList.iterator();
         while (a.hasNext()) {
             Book tBook = a.next();
@@ -197,7 +197,7 @@ public class LibrarySystem {
      * @return True if both member and book exist, and book isnt issued, and member
      *         has less than 10 books issued
      */
-    public boolean issueBook(int accessionNum, int cpr) {
+    public boolean issueBook(long accessionNum, long cpr) {
         LibMember toBeIssued = getMemberByCPR(cpr);
         Book lendedBook = getBookBYAccsNumber(accessionNum);
         if (BookList.indexOf(getBookBYAccsNumber(accessionNum)) == -1 || lendedBook.equals(null)
@@ -223,7 +223,7 @@ public class LibrarySystem {
      * @param accessionNum
      * @return true if book exists and is issued, otherwise false
      */
-    public boolean returnBook(int accessionNum) {
+    public boolean returnBook(long accessionNum) {
         Book a = getBookBYAccsNumber(accessionNum);
         if (a.equals(null) || BookList.indexOf(a) == -1 || a.getIssuedTo().equals(null)
                 || memberList.indexOf(a.getIssuedTo()) == -1) {
@@ -242,7 +242,7 @@ public class LibrarySystem {
      * @param accessionNum
      * @return True if Book exists, in bookList, and is issued to someone
      */
-    public boolean isBookIssued(int accessionNum) {
+    public boolean isBookIssued(long accessionNum) {
         return !getBookBYAccsNumber(accessionNum).equals(null)
                 && BookList.indexOf(getBookBYAccsNumber(accessionNum)) != -1
                 && !getBookBYAccsNumber(accessionNum).getIssuedTo().equals(null);
