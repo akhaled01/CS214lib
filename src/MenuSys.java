@@ -47,7 +47,7 @@ public class MenuSys {
         clearTerminal();
         int option;
         ColorPrinter.printMagenta("\n\t\t\t\t\tWelcome to LibSys\t\t\t\t\n");
-        System.out.println("Choose an Option");
+        ColorPrinter.printYellow("Choose an Option");
         System.out.println();
         ColorPrinter.printBlue("[1] Add a member");
         ColorPrinter.printBlue("[2] Add A book to library");
@@ -57,7 +57,7 @@ public class MenuSys {
         ColorPrinter.printBlue("[6] get information about a member");
         ColorPrinter.printBlue("[7] get information about issued Books");
         ColorPrinter.printBlue("[8] Remove member");
-        ColorPrinter.printBlue("[9] Remove Book Fron Lib");
+        ColorPrinter.printBlue("[9] Remove Book From LibSys");
         ColorPrinter.printBlue("[Anything] exit");
 
         try {
@@ -97,7 +97,7 @@ public class MenuSys {
             }
         } catch (InputMismatchException e) {
             clearTerminal();
-            ColorPrinter.printOrange("Input mismatch...");
+            ColorPrinter.printOrange("Input mismatch...exiting");
             Thread.sleep(1500);
             clearTerminal();
             System.exit(0);

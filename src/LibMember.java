@@ -127,8 +127,9 @@ public class LibMember {
     /**
      * remove a book from the issued book list
      * 
-     * @param a
+     * @param a - book to be removed
      * @return new bookarray after removal
+     * @throws IllegalArgumentException if book isnt issued to
      */
     public Book[] removeBookList(Book a) {
         int length = booksIssued.length;
@@ -136,7 +137,7 @@ public class LibMember {
 
         // Find the index of the book to delete
         for (int i = 0; i < length; i++) {
-            if (booksIssued[i].equals(a)) {
+            if (booksIssued[i] == a) {
                 index = i;
                 break;
             }

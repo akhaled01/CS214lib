@@ -15,6 +15,7 @@ public class Book {
     private String isbn;
     private long accessionNum;
     private LibMember issuedTo;
+    private static int AccessionCounter = 0;
 
     public Book() {
         // default constructor initializing each data member to default values
@@ -48,7 +49,8 @@ public class Book {
         if (aN > 1000) {
             accessionNum = aN;
         } else {
-            accessionNum = 1000;
+            accessionNum = 1000 + AccessionCounter;
+            AccessionCounter++;
         }
         issuedTo = null;
     }

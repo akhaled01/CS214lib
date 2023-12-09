@@ -57,7 +57,8 @@ public class LibrarySystem {
         Iterator<Book> a = BookList.iterator();
         while (a.hasNext()) {
             Book temp = a.next();
-            if (!temp.getIssuedTo().equals(null) && temp.getAccessionNum() == AccessionNumber) {
+            System.out.println(temp);
+            if (!(temp.getIssuedTo() == null) && temp.getAccessionNum() == AccessionNumber) {
                 a.remove();
                 booksListSize--;
                 return true;
@@ -202,12 +203,20 @@ public class LibrarySystem {
         Book lendedBook = getBookBYAccsNumber(accessionNum);
         if (lendedBook == null || toBeIssued == null) {
             // check if both member and book exist
+            System.out.println("something isnt there");
+            if (lendedBook == null) {
+                System.out.println("book not there");
+            } else if (toBeIssued == null) {
+                System.out.println("member isnt there");
+            }
             return false;
         } else if (lendedBook.getIssuedTo() != null) {
             // check if book is lended
+            System.out.println("book is lended");
             return false;
         } else if (toBeIssued.getNumBooksIssued() == 10) {
             // check if num of books issued to memeber is at max
+            System.out.println("member cant be lended");
             return false;
         }
 
@@ -226,7 +235,7 @@ public class LibrarySystem {
      */
     public boolean returnBook(long accessionNum) {
         Book a = getBookBYAccsNumber(accessionNum);
-        if (a.equals(null) || BookList.indexOf(a) == -1 || a.getIssuedTo().equals(null)
+        if (a.equals(null) || BookList.indexOf(a) == -1 || a.getIssuedTo() == null
                 || memberList.indexOf(a.getIssuedTo()) == -1) {
             return false;
         }
