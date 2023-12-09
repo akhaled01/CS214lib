@@ -53,7 +53,7 @@ public class LibrarySystem {
      * @param AccessionNumber
      * @return true if item ia found, not issued, and is removed, otherwise false
      */
-    public boolean deleteBook(int AccessionNumber) {
+    public boolean deleteBook(long AccessionNumber) {
         Iterator<Book> a = BookList.iterator();
         while (a.hasNext()) {
             Book temp = a.next();
@@ -122,7 +122,7 @@ public class LibrarySystem {
      * @return true on deletion, xcpet if member doesn't exist, or has books issued
      *         to him
      */
-    public boolean deletemember(int CPR) {
+    public boolean deletemember(long CPR) {
         Iterator<LibMember> a = memberList.iterator();
         if (getMemberByCPR(CPR) == null) {
             return false;
@@ -252,7 +252,7 @@ public class LibrarySystem {
      * Prints Books issued to a member
      * @param cpr
      */
-    public void printBooksIssued(int cpr) {
+    public void printBooksIssued(long cpr) {
         LibMember mem = getMemberByCPR(cpr);
         Book[] list = mem.getBooksIssued();
         System.out.println("BOOKS ISSUED TO : " + mem.getFirstName() + " " + mem.getLastName());

@@ -5,7 +5,13 @@
  */
 public class LibraryMain {
     public static void main(String[] args) {
-        MenuSys.Init();
-        MenuSys.clearTerminal();        
+        try {
+            MenuSys.Init();
+        } catch (InterruptedException e) {
+            System.out.println("Signal Interruption Detected, exiting...");
+            MenuSys.clearTerminal();
+            System.exit(0);
+        }
+        MenuSys.clearTerminal();
     }
 }
