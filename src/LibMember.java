@@ -53,6 +53,7 @@ public class LibMember {
 
     /**
      * set first Name
+     * 
      * @param fN
      */
     public void setFirstName(String fN) {
@@ -61,6 +62,7 @@ public class LibMember {
 
     /**
      * set Last Name
+     * 
      * @param lN
      */
     public void setLastName(String lN) {
@@ -112,17 +114,17 @@ public class LibMember {
     }
 
     /**
-     * Add a new book to the issued book list 
+     * Add a new book to the issued book list
      * 
      * @param a
      * @return new bookArray after addition
      */
-    public Book[] appendBookList(Book a) {
-        int length = booksIssued.length;
-        Book[] newArray = Arrays.copyOf(booksIssued, length + 1);
-        newArray[length] = a;
+    public Book[] appendBookList(Book newBook) {
+        // int length = booksIssued.length;
+        // Book[] newArray = Arrays.copyOf(booksIssued, length + 1);
+        booksIssued[getNumBooksIssued()] = newBook;
         numBooksIssued++;
-        return newArray;
+        return booksIssued;
     }
 
     /**
@@ -132,33 +134,18 @@ public class LibMember {
      * @return new bookarray after removal
      * @throws IllegalArgumentException if book isnt issued to
      */
-    public Book[] removeBookList(Book a) {
-        int length = booksIssued.length;
-        int index = -1;
-
-        // Find the index of the book to delete
-        for (int i = 0; i < length; i++) {
-            if (booksIssued[i] == a) {
-                index = i;
-                break;
-            }
+    public Book[] removeBookList(int index) {
+        if (index < 0 || index > numBooksIssued) {
+            throw new ArrayIndexOutOfBoundsException(index);
         }
-
-        if (index == -1) {
-            throw new IllegalArgumentException("Book not found in the array");
+        // Book returnValue = booksIssued[index];
+        // shift data in the array to delete element
+        for (int i = index + 1; i < numBooksIssued; i++) {
+            booksIssued[i - 1] = booksIssued[i];
         }
-
-        Book[] newArray = new Book[length - 1];
-
-        // Copy all elements from the original array to the new array except the book to
-        // delete
-        for (int i = 0, j = 0; i < length; i++) {
-            if (i != index) {
-                newArray[j++] = booksIssued[i];
-            }
-        }
+        booksIssued[numBooksIssued - 1] = null;
         numBooksIssued--;
-        return newArray;
+        return booksIssued;
     }
 
     /**

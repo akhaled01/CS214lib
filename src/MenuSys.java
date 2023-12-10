@@ -109,6 +109,12 @@ public class MenuSys {
     private static void getIssuedSys() throws InterruptedException {
         clearTerminal();
         ColorPrinter.printYellow("Enter Member CPR: ");
+        LibMember mem = LibSys.getMemberByCPR(in.nextLong());
+        if (mem == null) {
+            ColorPrinter.printRed("Member doesnt exist");
+            Thread.sleep(1500);
+            return;
+        }
         LibSys.printBooksIssued(in.nextLong());
         int o = in.nextInt();
         return;
@@ -157,6 +163,11 @@ public class MenuSys {
         ColorPrinter.printYellow("Enter Member CPR: ");
         long cpr = in.nextLong();
         LibMember a = LibSys.getMemberByCPR(cpr);
+        if (a == null) {
+            ColorPrinter.printRed("Member doesnt exist");
+            Thread.sleep(1500);
+            return;
+        }
         ColorPrinter.printGreen(a.toString());
         int o = in.nextInt();
         return;
@@ -171,6 +182,11 @@ public class MenuSys {
         ColorPrinter.printYellow("Enter Book Accession Number: ");
         long accs = in.nextLong();
         Book a = LibSys.getBookBYAccsNumber(accs);
+        if (a == null) {
+            ColorPrinter.printRed("Book doesn't exist");
+            Thread.sleep(1500);
+            return;
+        }
         ColorPrinter.printGreen(a.toString());
         int o = in.nextInt();
         return;
@@ -253,6 +269,12 @@ public class MenuSys {
 
         ColorPrinter.printBlue("ISBN: ");
         isbn = in.next();
+
+        // check length
+        if (isbn.length() != 13) {
+            ColorPrinter.printYellow("ISBN length not correct, defaulting to 0000000000000");
+            isbn = "0000000000000";
+        }
 
         ColorPrinter.printBlue("Accession Number: ");
         accessionNum = in.nextLong();

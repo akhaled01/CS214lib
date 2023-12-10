@@ -16,7 +16,7 @@ public class Book {
     private String isbn;
     private long accessionNum;
     private LibMember issuedTo;
-    private static int AccessionCounter = 0;
+    private static int AccessionCounter = 1;
 
     /**
      * default constructor initializing each data member to default values
@@ -261,9 +261,15 @@ public class Book {
      * Build a string from the Book object
      */
     public String toString() {
+        String issu;
+        if (getIssuedTo() == null) {
+            issu = "no one";
+        } else {
+            issu = getIssuedTo().getFirstName() + " " + getIssuedTo().getLastName();
+        }
         return String.format(
                 "Book Title: %s\nauthor1: %s\nauthor2: %s\npublisher: %s\nISBN: %s\npublished in: %d\n",
                 title, author1, author2, publisher, isbn, yearPublication) + "is issued to "
-                + getIssuedTo().getFirstName() + " " + getIssuedTo().getLastName();
+                + issu;
     }
 }

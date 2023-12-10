@@ -245,8 +245,8 @@ public class LibrarySystem {
         }
         LibMember temp = a.getIssuedTo();
         // auto decrements numBooksIssued by 1
-        temp.setBooksIssued(temp.removeBookList(a));
-        ;
+        temp.setBooksIssued(temp.removeBookList(BookList.indexOf(a)));
+        printBooksIssued(temp.getCprNum());
         a.setIssuedTo(null);
         return true;
     }
@@ -273,7 +273,11 @@ public class LibrarySystem {
         Book[] list = mem.getBooksIssued();
         System.out.println("BOOKS ISSUED TO : " + mem.getFirstName() + " " + mem.getLastName());
         for (Book book : list) {
-            System.out.println(book.toString());
+            if (book == null) {
+                System.out.println("NULL BOOK");
+            } else {
+                System.out.println(book.toString());
+            }
             System.out.println("=================");
         }
         System.out.println("<==========>");
