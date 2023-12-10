@@ -109,13 +109,19 @@ public class MenuSys {
     private static void getIssuedSys() throws InterruptedException {
         clearTerminal();
         ColorPrinter.printYellow("Enter Member CPR: ");
-        LibMember mem = LibSys.getMemberByCPR(in.nextLong());
+        long cpr = in.nextLong();
+        LibMember mem = LibSys.getMemberByCPR(cpr);
         if (mem == null) {
             ColorPrinter.printRed("Member doesnt exist");
             Thread.sleep(1500);
             return;
+        } else if (mem.getNumBooksIssued() == 0) {
+            ColorPrinter.printOrange("Member doesnt have issued books");
+            Thread.sleep(1500);
+            return;
         }
-        LibSys.printBooksIssued(in.nextLong());
+        System.out.println(mem.getNumBooksIssued());
+        LibSys.printBooksIssued(cpr);
         int o = in.nextInt();
         return;
     }
@@ -313,13 +319,15 @@ public class MenuSys {
         String c = in.next();
 
         ColorPrinter.printBlue("CPR Number: ");
-        cprNum = in.nextLong();
+        String cprnumstr = in.next();
+        cprNum = Long.parseLong(cprnumstr);
         in.nextLine(); // Consume the newline character after reading a long
 
         ColorPrinter.printBlue("Telephone Number: ");
         teleNum = in.nextLine();
 
         LibMember tLibMember = new LibMember(firstName, lastName, c.charAt(0), cprNum, teleNum);
+        tLibMember.setCprNumStr(cprnumstr);
         boolean a = LibSys.addMember(tLibMember);
         if (a) {
             ColorPrinter.printGreen("Member Added Successfully!");

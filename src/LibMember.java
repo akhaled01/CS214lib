@@ -3,6 +3,7 @@ import java.util.*;
 /**
  * * The following class is the main library member system
  * * We utilize multiple different classes and methods
+ * 
  * !Done By:
  * !Khadija Saeed Albasri - 202200734
  * !Abdulrahman Khaled - 202200729
@@ -12,6 +13,7 @@ public class LibMember {
     private String firstName;
     private String lastName;
     private char gender;
+    private String cprNumStr;
     private long cprNum;
     private String teleNum;
     private Book[] booksIssued;
@@ -69,6 +71,14 @@ public class LibMember {
         lastName = lN;
     }
 
+    /**
+     * set str cpr
+     * @param cprNumStr
+     */
+    public void setCprNumStr(String cprNumStr) {
+        this.cprNumStr = cprNumStr;
+    }
+
     /* set gender
      */
 
@@ -110,6 +120,15 @@ public class LibMember {
     public char getGender() {
         return gender;
     }
+
+    /**
+     * 
+     * @return cprNum in string
+     */
+    public String getCprNumStr() {
+        return cprNumStr;
+    }
+
     /* get cprNum
      */
     public long getCprNum() {
@@ -215,6 +234,6 @@ public class LibMember {
     public String toString() {
         return String.format(
                 "First name: %s\nLast Name: %s\nCPR Num: %s\nGender: %s\nTeleNum: %s\nBooks Issued:%s\n",
-                firstName, lastName, cprNum, gender, teleNum, issuedBooks());
+                firstName, lastName, getCprNumStr(), gender, teleNum, issuedBooks());
     }
 }
